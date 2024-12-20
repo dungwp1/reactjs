@@ -1,0 +1,25 @@
+.manage-doctor-container {
+    padding: 10px;
+
+    .more-info {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+
+        .content-left {
+            width: 35%;
+        }
+
+        .content-right {
+            width: 65%;
+        }
+    }
+
+    .save-content-doctor {
+        border-radius: 5px;
+        outline: none;
+        border: midnightblue;
+        padding: 5px;
+        margin-top: 10px;
+    }
+}

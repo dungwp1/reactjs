@@ -1,0 +1,142 @@
+.slick-prev {
+    left: -2px !important;
+    z-index: 1;
+
+}
+
+.slick-next {
+    right: 21px !important;
+}
+
+.slick-disabled {
+    display: none !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    font-family: 'Font Awesome 5 Free' !important;
+    border: 1px solid !important;
+    font-size: 40px !important;
+    color: black !important;
+    line-height: 0 !important;
+    background: white;
+
+}
+
+.section-share {
+    margin-top: 50px;
+
+    .section-container {
+        width: 80%;
+        margin: 0 auto;
+
+        .section-header {
+            height: 45px;
+            display: flex;
+            justify-content: space-between;
+
+
+            .title-section {
+                // width: 93%;
+                font-size: 30px;
+
+            }
+
+            .btn-section {
+                margin: 5px;
+                // width: 7%;
+                border: none;
+
+                &:hover {
+                    background: rgb(241, 193, 4);
+                    color: white;
+                }
+            }
+
+        }
+
+        .section-body {
+            .img-customize {
+                margin-top: 30px;
+                height: 100%;
+                display: flex;
+
+                .bg-image {
+                    height: 200px;
+                    margin: 0 auto;
+                    max-width: 90%;
+
+
+                    &.section-specialty {
+                        background: url(../../assets/specialty/coxuongkhop.jpg) center center no-repeat;
+                        background-size: cover;
+                    }
+
+                    &.section-medical-facility {
+                        background: url(../../assets/specialty/hoidapcongdong.jpeg) center center no-repeat;
+                        background-size: cover;
+                    }
+
+                    &.section-outstanding-doctor {
+                        // background: url(../../assets/specialty/congdongtinhthan.jpeg) center center no-repeat;
+                        background-size: cover;
+                        border-radius: 50%;
+                        width: 200px;
+                    }
+
+                    &.section-handbook {
+                        background: url(../../assets/specialty/benh-mua-mua.png) center center no-repeat;
+                        background-size: contain;
+                    }
+                }
+
+
+                div {
+                    font-size: 20px;
+                    text-align: center;
+                }
+
+
+
+            }
+        }
+
+
+
+    }
+}
+
+.section-about {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    width: 80%;
+    margin: 0 auto;
+    flex-direction: column;
+
+    .section-about-header {
+        display: flex;
+
+        .content-left {
+            width: 60%;
+        }
+
+        .content-right {
+            margin-top: 30px;
+            width: 40%;
+            font-size: 17px;
+            text-align: justify;
+            font-style: italic;
+
+        }
+    }
+
+}
+
+.content-header {
+    font-size: 30px;
+}
+
+.home-footer {
+    text-align: center;
+    padding-top: 5px;
+}

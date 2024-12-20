@@ -1,0 +1,62 @@
+{
+    "home-header": {
+        "title1": "Specialties",
+        "title2": "Facilities",
+        "title3": "Doctors",
+        "title4": "Packages",
+        "subtitle1": "Find by specialty",
+        "subtitle2": "Choose facilities",
+        "subtitle3": "Select doctors",
+        "subtitle4": "Health check-up",
+        "support": " Support",
+        "welcome": "Welcome"
+    },
+    "banner": {
+        "title1": "MEDICAL PLATFORM",
+        "title2": "COMPREHENSIVE HEALTHCARE",
+        "child1": "Specialty Consultation",
+        "child2": "Remote Consultation",
+        "child3": "General Check-up",
+        "child4": "Medical Testing",
+        "child5": "Mental Health",
+        "child6": "Dental Care"
+    },
+    "menu": {
+        "admin": {
+            "user": "User",
+            "clinic": "Clinic",
+            "specialty": "Specialty",
+            "handbook": "Handbook",
+            "manage": {
+                "doctor": "Manage doctors",
+                "admin": "Manage admins",
+                "crud": "CRUD user",
+                "crud-redux": "CRUD redux",
+                "clinic": "Manage clinics",
+                "specialty": "Manage specialties",
+                "handbook": "Manage handbooks"
+            }
+        }
+    },
+    "manage-user": {
+        "add-user": "Add new user",
+        "edit-user": "Edit user",
+        "email": "Email",
+        "password": "Password",
+        "phoneNumber": "Phone number",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "gender": "Gender",
+        "address": "Address",
+        "position": "Position",
+        "role": "Role",
+        "image": "Image",
+        "upload": "Upload",
+        "save": "Save",
+        "edit": "Edit"
+    },
+    "homepage": {
+        "out-standing-doctor": "Outstanding doctor of the week",
+        "more-info": "More info"
+    }
+}

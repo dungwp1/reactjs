@@ -1,0 +1,62 @@
+{
+    "home-header": {
+        "title1": "Chuyên khoa",
+        "title2": "Cơ sở y tế",
+        "title3": "Bác sĩ",
+        "title4": "Gói khám",
+        "subtitle1": "Tìm bác sĩ theo chuyên khoa",
+        "subtitle2": "Chọn bệnh viện phòng khám",
+        "subtitle3": "Chọn bác sĩ giỏi",
+        "subtitle4": "Khám sức khỏe tổng quát",
+        "support": " Hỗ trợ",
+        "welcome": "Xin chào"
+    },
+    "banner": {
+        "title1": "NỀN TẢNG Y TẾ",
+        "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
+        "child1": "Khám Chuyên khoa",
+        "child2": "Khám từ xa",
+        "child3": "Khám tổng quát",
+        "child4": "Xét nghiệm y học",
+        "child5": "Sức khỏe tin thần",
+        "child6": "Khám nha khoa"
+    },
+    "menu": {
+        "admin": {
+            "user": "Người dùng",
+            "clinic": "Phòng khám",
+            "specialty": "Chuyên khoa",
+            "handbook": "Cẩm nang",
+            "manage": {
+                "doctor": "Quản lý bác sĩ",
+                "admin": "Quản lý admin",
+                "crud": "CRUD user",
+                "crud-redux": "CRUD redux",
+                "clicnic": "Quản lý phòng khám",
+                "specialty": "Quản lý chuyên khoa",
+                "handbook": "Quản lý cẩm nang"
+            }
+        }
+    },
+    "manage-user": {
+        "add-user": "Thêm mới người dùng",
+        "edit-user": "Cập nhật người dùng",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "phoneNumber": "Số điện thoại",
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "gender": "Giới tính",
+        "address": "Địa chỉ",
+        "position": "Chức danh",
+        "role": "Vai trò",
+        "image": "Ảnh đại diện",
+        "upload": "Tải ảnh",
+        "save": "Lưu",
+        "edit": "Cập nhật"
+    },
+    "homepage": {
+        "out-standing-doctor": "Bác sĩ nổi bật tuần qua",
+        "more-info": "Xem thêm"
+    }
+}
