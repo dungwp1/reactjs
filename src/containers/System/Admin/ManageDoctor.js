@@ -8,6 +8,9 @@ import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import Select from 'react-select';
+import { every } from 'lodash';
+import { getDetailInfoDoctor } from '../../../services/userService';
+
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -21,12 +24,15 @@ class ManageDoctor extends Component {
             selectedDoctor: '',
             doctorId: '',
             description: '',
-            arrDoctors: ''
+            arrDoctors: '',
+            isOldData: ''
+
         }
     }
 
     componentDidMount() {
         this.props.loadAllDoctors();
+
 
     }
 
@@ -66,13 +72,29 @@ class ManageDoctor extends Component {
     }
 
 
-    handleChange = (selectedDoctor) => {
-        console.log('check selectedDoctor: ', selectedDoctor)
-        this.setState({
-            selectedDoctor
-        }, () =>
-            console.log(`Option selected:`, this.state.selectedDoctor)
-        );
+    handleChangeSelectDoctor = async (selectedDoctor) => {
+        this.setState({ selectedDoctor });
+        let res = await getDetailInfoDoctor(selectedDoctor.value);
+
+        if (res && res.errCode === 0 && res.data && res.data.Markdown && res.data.Markdown.contentMarkdown
+            && res.data.Markdown.contentHTML && res.data.Markdown.description) {
+            this.setState({
+                contentMarkdown: res.data.Markdown.contentMarkdown,
+                contentHTML: res.data.Markdown.contentHTML,
+                description: res.data.Markdown.description,
+                isOldData: true
+            })
+        }
+        else {
+            this.setState({
+                contentMarkdown: '',
+                contentHTML: '',
+                description: '',
+                isOldData: false
+            });
+        }
+        console.log('check state sau khi select bac sĩ: ', this.state)
+        console.log('check isOldData: ', this.state.isOldData)
     }
 
     handleOnChangeDesc = (event) => {
@@ -84,7 +106,7 @@ class ManageDoctor extends Component {
 
     render() {
         let language = this.props.language;
-        let arrDoctors = this.state.arrDoctors;
+        let { arrDoctors, isOldData } = this.state;
         console.log('check arrdoctors: ', this.state.arrDoctors)
         console.log('check state: ', this.state)
         return (
@@ -95,7 +117,7 @@ class ManageDoctor extends Component {
                         <label>Chọn bác sĩ</label>
                         <Select
                             value={this.state.selectedDoctor}
-                            onChange={(event) => this.handleChange(event)}
+                            onChange={(event) => this.handleChangeSelectDoctor(event)}
                             options=
                             {arrDoctors && arrDoctors.length > 0 &&
                                 arrDoctors.map((item) => {
@@ -105,7 +127,6 @@ class ManageDoctor extends Component {
                                         value: item.id,
                                         label: language === LANGUAGES.VI ? labelVi : labelEn
                                     }
-
                                 })}
                         />
 
@@ -123,12 +144,14 @@ class ManageDoctor extends Component {
                 <div className='manage-doctor-editor'>
                     <MdEditor style={{ height: '500px' }}
                         renderHTML={text => mdParser.render(text)}
-                        onChange={this.handleEditorChange} />
+                        onChange={this.handleEditorChange}
+                        value={this.state.contentMarkdown} />
                 </div>
                 <button
-                    className='save-content-doctor btn-primary'
+                    className={isOldData === true ? 'save-content-doctor btn-warning' : 'save-content-doctor btn-primary'}
+                    // className='save-content-doctor btn-primary'
                     onClick={() => this.handleSaveContentMarkdown()}>
-                    Lưu thông tin
+                    {isOldData === true ? 'Cập nhật thông tin' : 'Tạo thông tin'}
                 </button>
             </div>
         );
