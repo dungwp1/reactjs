@@ -1,0 +1,13 @@
+.manage-schedule-container {
+    width: 80%;
+    margin: 0 auto;
+
+    .pick-hour-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+}

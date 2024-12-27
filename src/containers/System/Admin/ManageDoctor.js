@@ -32,8 +32,6 @@ class ManageDoctor extends Component {
 
     componentDidMount() {
         this.props.loadAllDoctors();
-
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
