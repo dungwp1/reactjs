@@ -38,8 +38,12 @@ class ManageSchedule extends Component {
             })
         }
         if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
+            let data = this.props.allScheduleTime;
+            if (data && data.length > 0) {
+                data = data.map(item => ({ ...item, isSelected: false }))
+            }
             this.setState({
-                rangeTime: this.props.allScheduleTime
+                rangeTime: data
             })
         }
     }
@@ -61,17 +65,30 @@ class ManageSchedule extends Component {
         })
     }
 
-    handleSelectedTime = (value, index) => {
-        console.log('check value, index: ', value, index)
-        let data = [...this.props.allScheduleTime];
-        if (data[index]) {
-            data[index].isSelected = !data[index].isSelected;
-        }
-        this.setState({
-            ...this.state
+    handleSelectedTime = (inputTime) => {
+        let { rangeTime } = this.state;
+        rangeTime.map(item => {
+            if (item.id === inputTime.id) {
+                item.isSelected = !item.isSelected
+            }
+            return item;
         })
-        console.log('check range time: ', this.state.rangeTime)
+        this.setState({
+            rangeTime: rangeTime
+        })
     }
+
+    // handleSelectedTime = (value, index) => {
+    //     console.log('check value, index: ', value, index)
+    //     let data = [...this.props.allScheduleTime];
+    //     if (data[index]) {
+    //         data[index].isSelected = !data[index].isSelected;
+    //     }
+    //     this.setState({
+    //         ...this.state
+    //     })
+    //     console.log('check range time: ', this.state.rangeTime)
+    // }
 
     handleSaveSchedule = () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
@@ -142,7 +159,7 @@ class ManageSchedule extends Component {
                         <div className='range-time'>
                             {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
                                 return (
-                                    <button className={item.isSelected === true ? 'btn btn-warning ' : 'btn btn-outline-secondary'} key={index} onClick={() => this.handleSelectedTime(item.valueVi, index)}>
+                                    <button className={item.isSelected === true ? 'btn btn-warning ' : 'btn btn-outline-secondary'} key={index} onClick={() => this.handleSelectedTime(item)}>
                                         {item.valueVi}
                                     </button>
                                 )
