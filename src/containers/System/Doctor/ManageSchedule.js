@@ -9,6 +9,7 @@ import { getDetailInfoDoctor } from '../../../services/userService';
 import * as actions from '../../../store/actions';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { toast } from 'react-toastify';
 
 
 
@@ -20,7 +21,7 @@ class ManageSchedule extends Component {
         this.state = {
             selectedDoctor: '',
             arrDoctors: '',
-            currentDate: new Date().toLocaleDateString('en-GB'),
+            currentDate: '',
             rangeTime: [],
         }
     }
@@ -28,7 +29,6 @@ class ManageSchedule extends Component {
     componentDidMount() {
         this.props.loadAllDoctors();
         this.props.fetchAllcodeScheduleTime();
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -61,10 +61,46 @@ class ManageSchedule extends Component {
         })
     }
 
-    handleonClick = (inputClick) => {
-        console.log('đã click: inputClick: ', inputClick)
+    handleSelectedTime = (value, index) => {
+        console.log('check value, index: ', value, index)
+        let data = [...this.props.allScheduleTime];
+        if (data[index]) {
+            data[index].isSelected = !data[index].isSelected;
+        }
+        this.setState({
+            ...this.state
+        })
+        console.log('check range time: ', this.state.rangeTime)
     }
 
+    handleSaveSchedule = () => {
+        let { rangeTime, selectedDoctor, currentDate } = this.state;
+        let result = [];
+        if (!selectedDoctor) {
+            toast.error('Please input valid doctor!')
+            return
+        }
+        if (!currentDate) {
+            toast.error('Please input valid date!')
+            return
+        }
+        if (rangeTime && rangeTime.length > 0) {
+            let selectedTime = rangeTime.filter(item => item.isSelected === true)
+            if (selectedTime && selectedTime.length > 0) {
+                selectedTime.map(item => {
+                    let obj = {};
+                    obj.doctorId = selectedDoctor.value;
+                    obj.date = currentDate;
+                    obj.time = item.keyMap
+                    result.push(obj)
+                })
+            } else {
+                toast.error('Please input selected time!')
+                return
+            }
+        }
+        console.log('check scheduleDoctor ', result)
+    }
     render() {
         console.log("check state: ", this.state)
         // console.log("check props: ", this.props)
@@ -74,11 +110,11 @@ class ManageSchedule extends Component {
 
         return (
             <div className='manage-schedule-container'>
-                <div className='m-s-title title'>
-                    <FormattedMessage id='manage-schedule.title' />
-                </div>
                 <div className='row'>
-                    <div className='form-group col-6'>
+                    <div className='m-s-title title col-12'>
+                        <FormattedMessage id='manage-schedule.title' />
+                    </div>
+                    <div className='form-group col-12'>
                         <label><FormattedMessage id='manage-schedule.choose-doctor' /></label>
                         <Select
                             value={this.state.selectedDoctor}
@@ -95,24 +131,28 @@ class ManageSchedule extends Component {
                                 })}
                         />
                     </div>
-                    <div className='form-group col-6'>
+                    <div className='form-group col-4'>
                         <label><FormattedMessage id='manage-schedule.choose-date' /></label>
                         <Calendar
                             minDate={new Date()}
                             onChange={(date) => this.handleOnchangeDatePicker(date)} />
                     </div>
-                    <div className='col-12 pick-hour-container'>
-                        {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
-                            return (
-                                <button className='btn btn-outline-secondary' key={index} onClick={() => this.handleonClick(item.valueEn)}>
-                                    {item.valueEn}
-                                </button>
-                            )
-                        })}
+                    <div className='pick-hour-container col-8'>
+                        <label><FormattedMessage id='manage-schedule.choose-range-time' /></label>
+                        <div className='range-time'>
+                            {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
+                                return (
+                                    <button className={item.isSelected === true ? 'btn btn-warning ' : 'btn btn-outline-secondary'} key={index} onClick={() => this.handleSelectedTime(item.valueVi, index)}>
+                                        {item.valueVi}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                        <div className='save-btn'>
+                            <button className='btn btn-primary' onClick={() => this.handleSaveSchedule()}><FormattedMessage id='manage-schedule.save' /></button>
+                        </div>
                     </div>
-                    <div className='col-12'>
-                        <button className='btn btn-primary'><FormattedMessage id='manage-schedule.save' /></button>
-                    </div>
+
                 </div>
             </div >
         );
