@@ -10,6 +10,7 @@ import * as actions from '../../../store/actions';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { toast } from 'react-toastify';
+import { saveBulkScheduleDoctor } from '../../../services/userService';
 
 
 
@@ -58,10 +59,11 @@ class ManageSchedule extends Component {
     }
 
     handleOnchangeDatePicker = (date) => {
-        console.log('check select date', date);
-        console.log('check format  date', date.toLocaleDateString('en-GB'));
+        date.setHours(0, 0, 0, 0);
+        console.log('check select date: ', date);
+        console.log('check format  date: ', date.toISOString());
         this.setState({
-            currentDate: date.toLocaleDateString('en-GB')
+            currentDate: date.toISOString()
         })
     }
 
@@ -78,19 +80,7 @@ class ManageSchedule extends Component {
         })
     }
 
-    // handleSelectedTime = (value, index) => {
-    //     console.log('check value, index: ', value, index)
-    //     let data = [...this.props.allScheduleTime];
-    //     if (data[index]) {
-    //         data[index].isSelected = !data[index].isSelected;
-    //     }
-    //     this.setState({
-    //         ...this.state
-    //     })
-    //     console.log('check range time: ', this.state.rangeTime)
-    // }
-
-    handleSaveSchedule = () => {
+    handleSaveSchedule = async () => {
         let { rangeTime, selectedDoctor, currentDate } = this.state;
         let result = [];
         if (!selectedDoctor) {
@@ -108,7 +98,7 @@ class ManageSchedule extends Component {
                     let obj = {};
                     obj.doctorId = selectedDoctor.value;
                     obj.date = currentDate;
-                    obj.time = item.keyMap
+                    obj.timeType = item.keyMap
                     result.push(obj)
                 })
             } else {
@@ -116,8 +106,23 @@ class ManageSchedule extends Component {
                 return
             }
         }
-        console.log('check scheduleDoctor ', result)
+
+        let response = await saveBulkScheduleDoctor({
+            data: result,
+            doctorId: selectedDoctor.value,
+            date: currentDate
+        })
+        if (response.errCode === 0) {
+            toast.success('Save schedule doctor succeed!')
+        } else {
+            toast.error('Save schedule doctor failed!')
+
+        }
+
+        console.log('check response: ', response)
     }
+
+
     render() {
         console.log("check state: ", this.state)
         // console.log("check props: ", this.props)
