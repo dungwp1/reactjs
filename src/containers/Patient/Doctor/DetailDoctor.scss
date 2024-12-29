@@ -46,6 +46,19 @@
 
     }
 
+    .schedule-doctor {
+        display: flex;
+        gap: 20px;
+
+        .content-left {
+            width: 50%;
+        }
+
+        .content-right {
+            width: 50%;
+        }
+    }
+
     .detail-info-doctor {
         padding-top: 20px;
         margin-top: 20px;

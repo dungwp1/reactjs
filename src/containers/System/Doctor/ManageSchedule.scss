@@ -4,6 +4,7 @@
     display: flex;
 
     .pick-hour-container {
+        margin-top: 20px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -21,7 +22,7 @@
         }
 
         .save-btn {
-            margin-top: 20px
+            margin-top: 30px
         }
 
     }

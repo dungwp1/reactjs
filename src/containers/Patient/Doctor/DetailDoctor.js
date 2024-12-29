@@ -1,9 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
+import DoctorSchedule from './DoctorSchedule';
 import './DetailDoctor.scss';
 import { getDetailInfoDoctor } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
+import { getDoctorSchedule } from '../../../services/userService';
+
 
 
 class DetailDoctor extends Component {
@@ -18,7 +21,6 @@ class DetailDoctor extends Component {
         if (this.props.match && this.props.match.params && this.props.match.params.id) {
             let id = this.props.match.params.id
             let res = await getDetailInfoDoctor(id)
-            console.log('check response có id: ', res)
             if (res && res.errCode === 0) {
                 this.setState({
                     detailDoctor: res.data
@@ -72,7 +74,12 @@ class DetailDoctor extends Component {
                         </div>
                     </div>
                     <div className='schedule-doctor'>
-
+                        <div className='content-left'>
+                            <DoctorSchedule doctorId={this.props.match.params.id} />
+                        </div>
+                        <div className='content-right'>
+                            Content-right
+                        </div>
                     </div>
                     <div className='detail-info-doctor'>
                         {detailDoctor.Markdown && detailDoctor.Markdown.contentHTML &&

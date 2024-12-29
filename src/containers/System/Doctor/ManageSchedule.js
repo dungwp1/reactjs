@@ -136,7 +136,7 @@ class ManageSchedule extends Component {
                     <div className='m-s-title title col-12'>
                         <FormattedMessage id='manage-schedule.title' />
                     </div>
-                    <div className='form-group col-12'>
+                    <div className='form-group col-8'>
                         <label><FormattedMessage id='manage-schedule.choose-doctor' /></label>
                         <Select
                             value={this.state.selectedDoctor}
@@ -152,6 +152,21 @@ class ManageSchedule extends Component {
                                     }
                                 })}
                         />
+                        <div className='pick-hour-container'>
+                            <label><FormattedMessage id='manage-schedule.choose-range-time' /></label>
+                            <div className='range-time'>
+                                {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
+                                    return (
+                                        <button className={item.isSelected === true ? 'btn btn-warning ' : 'btn btn-outline-secondary'} key={index} onClick={() => this.handleSelectedTime(item)}>
+                                            {item.valueVi}
+                                        </button>
+                                    )
+                                })}
+                            </div>
+                            <div className='save-btn'>
+                                <button className='btn btn-primary' onClick={() => this.handleSaveSchedule()}><FormattedMessage id='manage-schedule.save' /></button>
+                            </div>
+                        </div>
                     </div>
                     <div className='form-group col-4'>
                         <label><FormattedMessage id='manage-schedule.choose-date' /></label>
@@ -159,21 +174,7 @@ class ManageSchedule extends Component {
                             minDate={new Date()}
                             onChange={(date) => this.handleOnchangeDatePicker(date)} />
                     </div>
-                    <div className='pick-hour-container col-8'>
-                        <label><FormattedMessage id='manage-schedule.choose-range-time' /></label>
-                        <div className='range-time'>
-                            {rangeTime && rangeTime.length > 0 && rangeTime.map((item, index) => {
-                                return (
-                                    <button className={item.isSelected === true ? 'btn btn-warning ' : 'btn btn-outline-secondary'} key={index} onClick={() => this.handleSelectedTime(item)}>
-                                        {item.valueVi}
-                                    </button>
-                                )
-                            })}
-                        </div>
-                        <div className='save-btn'>
-                            <button className='btn btn-primary' onClick={() => this.handleSaveSchedule()}><FormattedMessage id='manage-schedule.save' /></button>
-                        </div>
-                    </div>
+
 
                 </div>
             </div >
