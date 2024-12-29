@@ -128,6 +128,8 @@ class ManageSchedule extends Component {
         // console.log("check props: ", this.props)
         let { language, allScheduleTime } = this.props;
         let { arrDoctors, rangeTime } = this.state;
+        console.log("check rangeTime: ", rangeTime)
+
 
 
         return (
