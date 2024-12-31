@@ -204,7 +204,7 @@ class UserRedux extends Component {
         let roles = this.state.roleArr;
         let language = this.props.language;
         let isLoadingGender = this.props.isLoadingGender;
-        // console.log('check props genders redux', this.props.genderRedux)
+        console.log('check props  ', this.props)
         return (
             <div className='user-redux-container'>
                 <div className='title'>User Redux</div>

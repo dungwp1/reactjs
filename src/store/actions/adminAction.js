@@ -269,9 +269,78 @@ export const fetchAllcodeScheduleTime = () => {
                 })
             }
         } catch (e) {
-            console.log('FETCH_ALL_DOCTORS_FAILED: ', e)
+            console.log('FETCH_ALLCODE_SCHEDULE_TIME_FAILED: ', e)
             dispatch({
                 type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED,
+            })
+        }
+    }
+}
+
+export const fetchDoctorPrice = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService('PRICE');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_DOCTOR_PRICE_SUCCESS,
+                    dataDoctorPrice: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_DOCTOR_PRICE_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_DOCTOR_PRICE_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_ALLCODE_SCHEDULE_TIME_FAILED,
+            })
+        }
+    }
+}
+
+export const fetchPaymentMethod = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService('PAYMENT');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_PAYMENT_METHOD_SUCCESS,
+                    dataPayment: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_PAYMENT_METHOD_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_PAYMENT_METHOD_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_PAYMENT_METHOD_FAILED,
+            })
+        }
+    }
+}
+
+export const fetchProvince = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await getAllCodeService('PROVINCE');
+            if (res && res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.FETCH_PROVINCE_SUCCESS,
+                    dataProvince: res.data
+                })
+            } else {
+                dispatch({
+                    type: actionTypes.FETCH_PROVINCE_FAILED,
+                })
+            }
+        } catch (e) {
+            console.log('FETCH_PROVINCE_FAILED: ', e)
+            dispatch({
+                type: actionTypes.FETCH_PROVINCE_FAILED,
             })
         }
     }

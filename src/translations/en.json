@@ -68,5 +68,14 @@
         "choose-date": "Choose date",
         "choose-range-time": "Choose appointment time",
         "save": "Save information"
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Create doctor information",
+            "select-doctor": "Select doctor",
+            "about": "Introduction information",
+            "update": "Update",
+            "create": "Create"
+        }
     }
 }

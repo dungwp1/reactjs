@@ -69,5 +69,14 @@
         "choose-date": "Chọn ngày",
         "choose-range-time": "Chọn giờ khám",
         "save": "Lưu thông tin"
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Tạo thông tin bác sĩ",
+            "select-doctor": "Chọn bác sĩ",
+            "about": "Thông tin giới thiệu",
+            "update": "Cập nhật thông tin",
+            "create": "Tạo thông tin"
+        }
     }
 }

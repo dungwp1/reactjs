@@ -44,7 +44,7 @@ class OutStandingDoctor extends Component {
                         <Slider {...this.props.settings}>
 
                             {arrDoctors && arrDoctors.length > 0
-                                && arrDoctors.map((item, index) => {
+                                && arrDoctors.reverse().map((item, index) => {
                                     let imageBase64 = '';
                                     if (item.image) {
                                         imageBase64 = new Buffer(item.image, 'base64').toString('binary');
