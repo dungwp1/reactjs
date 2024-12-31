@@ -1,5 +1,7 @@
 .doctor-schedule-container {
     .all-schedule {
+        border-right: 1px solid #ddd;
+
         .select-day {
             margin-top: 20px;
             padding-bottom: 5px;
@@ -8,6 +10,7 @@
             color: #347ab8;
             font-weight: bold;
             border-bottom: 1px solid #ddd;
+            text-transform: capitalize;
 
             .range-time {
                 height: 100px;
@@ -26,7 +29,7 @@
             flex-wrap: wrap;
 
             button {
-                min-width: 110px;
+                min-width: 150px;
                 border: transparent 2px solid;
                 padding: 8px;
                 font-weight: bold;
@@ -36,6 +39,10 @@
                     border: #347ab8 2px solid;
                 }
             }
+        }
+
+        .contact {
+            margin-top: 10px;
         }
     }
 }

@@ -59,11 +59,12 @@ class ManageSchedule extends Component {
     }
 
     handleOnchangeDatePicker = (date) => {
-        date.setHours(0, 0, 0, 0);
         console.log('check select date: ', date);
-        console.log('check format  date: ', date.toISOString());
+        date.setHours(0, 0, 0, 0);
+        console.log('check select date: ', date, typeof date);
+        console.log('check format  date: ', date.getTime(), typeof date.getTime());
         this.setState({
-            currentDate: date.toISOString()
+            currentDate: date.getTime()
         })
     }
 
