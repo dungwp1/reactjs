@@ -1,0 +1,112 @@
+.doctor-extra-info-container {
+    padding-left: 20px;
+
+
+    .doctor-extra-info-content {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+
+        .title-clinic {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #666666;
+        }
+
+        .name-clinic {
+            font-weight: bold;
+        }
+
+        .address-clinic {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .price {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+
+            .hide-price {
+                display: flex;
+                color: #666666;
+                font-weight: bold;
+                text-transform: uppercase;
+
+
+
+                .xem-chi-tiet {
+                    color: #5dc9d7;
+                    cursor: pointer;
+                    text-transform: none;
+
+
+
+                }
+            }
+
+            .show-price {
+                display: flex;
+                flex-direction: column;
+
+                .title-1 {
+                    color: #48c4d3;
+                    font-weight: bold;
+                }
+
+                .title-2 {
+                    color: #666666;
+                    font-weight: bold;
+                }
+
+                .row-1 {
+                    border: 1px solid #ddd;
+                    background: #f8f8f8;
+                    padding: 0 2px;
+                    display: flex;
+                    justify-content: space-between;
+                    min-height: 45px;
+
+
+                    .left {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .right {
+                        display: flex;
+                        align-items: center;
+                    }
+                }
+
+                .row-2 {
+                    border: 1px solid #ddd;
+                    background: #eeeeee;
+                    padding: 0 2px;
+                    min-height: 45px;
+
+                }
+
+                .xem-chi-tiet {
+                    color: #5dc9d7;
+                    cursor: pointer;
+                    text-transform: none;
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: end;
+                    margin-top: 5px;
+
+
+                }
+            }
+
+        }
+
+        .insurance {
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #666666;
+            padding: 10px 0;
+
+        }
+    }
+}

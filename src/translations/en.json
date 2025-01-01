@@ -75,7 +75,13 @@
             "select-doctor": "Select doctor",
             "about": "Introduction information",
             "update": "Update",
-            "create": "Create"
+            "create": "Create",
+            "price": "Price",
+            "payment-method": "Payment Method",
+            "province": "Province",
+            "clinic": "Clinic",
+            "address-clinic": "Address",
+            "note": "Note"
         }
     }
 }

@@ -6,6 +6,7 @@ import './DetailDoctor.scss';
 import { getDetailInfoDoctor } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
 import { getDoctorSchedule } from '../../../services/userService';
+import DoctorExtraInfo from './DoctorExtraInfo';
 
 
 
@@ -77,7 +78,8 @@ class DetailDoctor extends Component {
                             <DoctorSchedule doctorId={this.props.match.params.id} />
                         </div>
                         <div className='content-right'>
-                            Content-right
+                            <DoctorExtraInfo doctorId={this.props.match.params.id} />
+
                         </div>
                     </div>
                     <div className='section-detail-info-doctor'>

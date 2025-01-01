@@ -76,7 +76,13 @@
             "select-doctor": "Chọn bác sĩ",
             "about": "Thông tin giới thiệu",
             "update": "Cập nhật thông tin",
-            "create": "Tạo thông tin"
+            "create": "Tạo thông tin",
+            "price": "Giá khám",
+            "payment-method": "Phương thức thanh toán",
+            "province": "Tỉnh thành",
+            "clinic": "Tên phòng khám",
+            "address-clinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
         }
     }
 }
