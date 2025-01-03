@@ -10,6 +10,7 @@
     "bootstrap": "^4.6.0",
     "connected-react-router": "^6.9.1",
     "date-fns": "^4.1.0",
+    "flatpickr": "^4.6.13",
     "lodash": "^4.17.21",
     "markdown-it": "^12.1.0",
     "moment": "^2.29.0",

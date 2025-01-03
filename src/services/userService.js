@@ -58,6 +58,9 @@ const getDoctorSchedule = (doctorId, date) => {
 const getFullInfoBooking = (inputId) => {
     return axios.get(`/api/get-full-info-booking-by-id?id=${inputId}`)
 }
+const postInfoBooking = (data) => {
+    return axios.post(`/api/patient-book-appointment`, data)
+}
 export {
     handleLoginApi,
     getAllUsers,
@@ -71,5 +74,6 @@ export {
     getDetailInfoDoctor,
     saveBulkScheduleDoctor,
     getDoctorSchedule,
-    getFullInfoBooking
+    getFullInfoBooking,
+    postInfoBooking
 }
