@@ -3,11 +3,9 @@ import { connect } from "react-redux";
 import HomeHeader from '../../HomePage/HomeHeader';
 import DoctorSchedule from './DoctorSchedule';
 import './DetailDoctor.scss';
-import { getDetailInfoDoctor } from '../../../services/userService';
 import { LANGUAGES } from '../../../utils';
-import { getDoctorSchedule } from '../../../services/userService';
 import DoctorExtraInfo from './DoctorExtraInfo';
-
+import { getDetailInfoDoctor } from '../../../services/userService';
 
 
 class DetailDoctor extends Component {
@@ -38,8 +36,8 @@ class DetailDoctor extends Component {
 
 
     render() {
-        console.log(this.props.match.params.id);
-        console.log("check detail doctor: ", this.state);
+        // console.log(this.props.match.params.id);
+        // console.log("check state detail doctor: ", this.state);
         let { detailDoctor } = this.state;
         let language = this.props.language;
         let nameVi = '', nameEn = '';
@@ -75,10 +73,16 @@ class DetailDoctor extends Component {
                     </div>
                     <div className='schedule-doctor'>
                         <div className='content-left'>
-                            <DoctorSchedule doctorId={this.props.match.params.id} />
+                            <DoctorSchedule
+                                id={this.props.match.params.id}
+                                detailDoctor={detailDoctor}
+                            />
                         </div>
                         <div className='content-right'>
-                            <DoctorExtraInfo doctorId={this.props.match.params.id} />
+                            <DoctorExtraInfo
+                                id={this.props.match.params.id}
+                                detailDoctor={detailDoctor}
+                            />
 
                         </div>
                     </div>

@@ -1,11 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
-import HomeHeader from '../../HomePage/HomeHeader';
 import './DoctorExtraInfo.scss';
 import { LANGUAGES } from '../../../utils';
-import { getDoctorSchedule } from '../../../services/userService';
-import moment from 'moment';
-import localization from 'moment/locale/vi'
 import { FormattedMessage } from 'react-intl';
 import { getDetailInfoDoctor } from '../../../services/userService';
 import { NumericFormat } from 'react-number-format';
@@ -23,19 +19,17 @@ class DoctorExtraInfo extends Component {
     }
 
     async componentDidMount() {
-        let res = await getDetailInfoDoctor(this.props.doctorId);
-        console.log('check resssss: ', res);
-        this.setState({
-            nameClinic: res.data.Doctor_Info.nameClinic,
-            addressClinic: res.data.Doctor_Info.addressClinic,
-            price: res.data.Doctor_Info.priceData,
-        })
 
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.doctorId !== prevProps.doctorId) {
-
+        if (this.props.detailDoctor !== prevProps.detailDoctor) {
+            let { detailDoctor } = this.props
+            this.setState({
+                nameClinic: detailDoctor.Doctor_Info.nameClinic,
+                addressClinic: detailDoctor.Doctor_Info.addressClinic,
+                price: detailDoctor.Doctor_Info.priceData,
+            })
         }
 
     }
@@ -47,7 +41,7 @@ class DoctorExtraInfo extends Component {
 
 
     render() {
-        console.log('check state: ', this.state)
+        // console.log('check props doctorExtraInfo: ', this.props)
         const { language } = this.props
         let { nameClinic, addressClinic, price, isShowAboutPrice } = this.state
 

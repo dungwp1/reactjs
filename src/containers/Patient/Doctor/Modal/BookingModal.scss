@@ -1,0 +1,141 @@
+.modal-content {
+    .modal-header {
+
+        .modal-title {
+            text-transform: uppercase;
+            color: #555555;
+            font-weight: bold;
+        }
+    }
+
+    .modal-body {
+
+        .header {
+            display: flex;
+            height: 100%;
+            gap: 10px;
+
+
+            .content-left {
+                width: 25%;
+                display: flex;
+
+                .content-image {
+                    aspect-ratio: 1/1;
+                    height: 100px;
+                    border-radius: 50%;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    background-position: top;
+                    margin: auto auto;
+
+
+                }
+
+                .fas {
+                    font-size: 40px;
+                }
+            }
+
+            .content-right {
+                height: 100%;
+                width: 75%;
+
+                .name-doctor {
+                    color: #337AB7;
+                    font-weight: bold;
+                }
+
+                .time {
+                    display: flex;
+                    gap: 10px;
+
+                    .fas {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 20px
+                    }
+
+                    .selected-time {
+                        color: #FFC206;
+                        font-weight: bold;
+                        width: 100%;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .clinic {
+                    display: flex;
+                    gap: 10px;
+
+                    .fas {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 20px
+                    }
+
+                    .name-clinic {
+                        color: #555555;
+                        font-weight: bold;
+                    }
+                }
+
+                .address {
+                    display: flex;
+                    gap: 10px;
+
+                    .fas {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 20px
+                    }
+
+                }
+
+                .price {
+                    display: flex;
+                    gap: 10px;
+
+                    .fas {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-width: 20px
+                    }
+
+                }
+            }
+        }
+
+        .row {
+
+            .col-12 {
+
+                .input-group {
+                    margin: 10px 0;
+                    border: 1px solid #ddd;
+                    border-radius: 0.25rem;
+
+                    .input-group-text {
+                        border: none;
+                        background: none;
+                    }
+
+                    .form-control {
+                        border: none;
+                        border-radius: none;
+                    }
+                }
+
+                .form-check-inline {
+                    margin-left: 10.5px;
+                }
+            }
+
+        }
+
+    }
+}

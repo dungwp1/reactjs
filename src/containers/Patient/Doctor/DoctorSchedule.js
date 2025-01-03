@@ -7,6 +7,7 @@ import { getDoctorSchedule } from '../../../services/userService';
 import moment from 'moment';
 import localization from 'moment/locale/vi'
 import { FormattedMessage } from 'react-intl';
+import BookingModal from './Modal/BookingModal';
 
 class DoctorSchedule extends Component {
 
@@ -14,16 +15,15 @@ class DoctorSchedule extends Component {
         super(props);
         this.state = {
             allDays: [],
-            selectedOption: [],
+            availableTime: [],
+            isOpenModalBooking: false,
+            selectedTime: {},
+            selectedDay: ''
+            // selectedDay: 'Hôm nay' + moment(new Date()).format(' - DD/MM')
         }
     }
 
     async componentDidMount() {
-        let timeVi = moment(new Date()).format(' - DD/MM');
-        timeVi = 'Hôm nay' + timeVi;
-        let timeEn = moment(new Date()).locale('en').format('dddd - DD/MM');
-        console.log('check format timeVi: ', timeVi)
-        console.log('check format timeEn: ', timeEn)
         let arrDate = [];
         for (let i = 0; i < 7; i++) {
             let object = {};
@@ -31,14 +31,14 @@ class DoctorSchedule extends Component {
                 if (i !== 0) {
                     object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
                 } else {
-                    object.label = moment(new Date()).add(i, 'days').format(' - DD/MM');
+                    object.label = moment(new Date()).format(' - DD/MM');
                     object.label = 'Hôm nay' + object.label;
                 }
             } else {
                 if (i !== 0) {
                     object.label = moment(new Date()).add(i, 'days').locale('en').format('dddd - DD/MM');
                 } else {
-                    object.label = moment(new Date()).add(i, 'days').locale('en').format(' - DD/MM');
+                    object.label = moment(new Date()).locale('en').format(' - DD/MM');
                     object.label = 'Today' + object.label;
                 }
             }
@@ -48,15 +48,17 @@ class DoctorSchedule extends Component {
             object.value = date.getTime()
             arrDate.push(object)
         }
-        console.log('check arrDate: ', arrDate)
-        console.log('check ngày đầu doctorId: ', this.props.doctorId)
-        console.log('check ngày đầu date: ', arrDate[0].value)
-        let response = await getDoctorSchedule(this.props.doctorId, arrDate[0].value)
+        // console.log('check arrDate: ', arrDate)
+        // console.log('check ngày đầu doctorId: ', id)
+        console.log('check ngày đầu arrDate[0].value: ', arrDate[0].value, typeof arrDate[0].value)
+        let response = await getDoctorSchedule(this.props.id, arrDate[0].value)
         console.log('check ngày đầu: ', response)
         this.setState({
             allDays: arrDate,
-            selectedOption: response.data,
+            availableTime: response.data,
+            selectedDay: arrDate[0].value
         })
+
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -68,14 +70,14 @@ class DoctorSchedule extends Component {
                     if (i !== 0) {
                         object.label = moment(new Date()).add(i, 'days').format('dddd - DD/MM');
                     } else {
-                        object.label = moment(new Date()).add(i, 'days').format(' - DD/MM');
+                        object.label = moment(new Date()).format(' - DD/MM');
                         object.label = 'Hôm nay' + object.label;
                     }
                 } else {
                     if (i !== 0) {
                         object.label = moment(new Date()).add(i, 'days').locale('en').format('dddd - DD/MM');
                     } else {
-                        object.label = moment(new Date()).add(i, 'days').locale('en').format(' - DD/MM');
+                        object.label = moment(new Date()).locale('en').format(' - DD/MM');
                         object.label = 'Today' + object.label;
                     }
                 }
@@ -85,7 +87,7 @@ class DoctorSchedule extends Component {
                 object.value = date.getTime()
                 arrDate.push(object)
             }
-            console.log('check arrDate: ', arrDate)
+            // console.log('check arrDate: ', arrDate)
             this.setState({
                 allDays: arrDate
             })
@@ -93,72 +95,96 @@ class DoctorSchedule extends Component {
     }
 
     handleSelectDay = async (selectedDay) => {
-        let date = selectedDay.target.value;
-        let doctorId = this.props.doctorId;
-        console.log('check date: ', date)
-        console.log('check doctorId: ', doctorId)
+        // console.log('check selected day: ', moment(selectedDay.target.value).format('dddd - DD/MM'))
+        let date = Number(selectedDay.target.value);
+        // console.log('check selected day: ', moment((date)).format('dddd - DD/MM'))
+        let { id } = this.props;
+        // console.log('check date: ', date, typeof date)
+        // console.log('check doctorId: ', id)
 
 
-        let response = await getDoctorSchedule(doctorId, date)
-        console.log('check response: ', response)
+        let response = await getDoctorSchedule(id, date)
+        // console.log('check getDoctorSchedule response: ', response)
         this.setState({
-            selectedOption: response.data,
+            availableTime: response.data,
+            selectedDay: date
         })
-        console.log('check selectedOption: ', this.state.selectedOption)
+        // console.log('check availableTime: ', this.state.availableTime)
+        // console.log('check selectedDay: ', this.state.selectedDay)
     }
 
+    handleSelectTime = (selectedTime) => {
+        // console.log('check selected time: ', selectedTime)
+        this.setState({
+            selectedTime: selectedTime,
+            isOpenModalBooking: true
+        })
+    }
+
+    closeModalBooking = () => {
+        this.setState({
+            isOpenModalBooking: !this.state.isOpenModalBooking
+        })
+    }
 
     render() {
-        console.log('check state: ', this.state)
-        const { selectedOption, allDays } = this.state;
-        const { language } = this.props
-
+        console.log('check state doctorschedule: ', this.state)
+        const { availableTime, allDays } = this.state;
+        const { language, id } = this.props
+        // console.log('check doctorschedule doctorId: ', id)
         return (
-            <div className='doctor-schedule-container'>
-                <div className='all-schedule'>
-                    <select
-                        className='select-day'
-                        onChange={(event) => this.handleSelectDay(event)}>
-                        {allDays && allDays.length > 0 &&
-                            allDays.map((item, index) => {
-                                return (
-                                    <option value={item.value} key={index}>
-                                        {item.label}
-                                    </option>
-                                )
-                            })}
-                    </select>
-                    <div className='text-calendar'>
-                        <span><i class="fas fa-calendar-alt"></i> LỊCH KHÁM</span>
-                    </div>
-                    <div className='time-content'>
-                        {selectedOption && selectedOption.length > 0 ?
-                            (selectedOption.map((item, index) => {
-                                return (
-                                    <button key={index}>
-                                        {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
-                                    </button>
-                                )
-                            }))
-                            : <div>Không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác!</div>
-                        }
-                    </div>
-                    <div className='contact'>
-                        <span>
-                            {selectedOption && selectedOption.length > 0 ? (
-                                <>
-                                    Chọn <i class="far fa-hand-point-up"></i> và đặt (Phí đặt lịch 0đ)
-                                </>
-                            ) : (``)}
-                        </span>
+            <>
+                <div className='doctor-schedule-container'>
+                    <div className='all-schedule'>
+                        <select
+                            className='select-day'
+                            onChange={(event) => this.handleSelectDay(event)}>
+                            {allDays && allDays.length > 0 &&
+                                allDays.map((item, index) => {
+                                    return (
+                                        <option value={item.value} key={index}>
+                                            {item.label}
+                                        </option>
+                                    )
+                                })}
+                        </select>
+                        <div className='text-calendar'>
+                            <span><i class="fas fa-calendar-alt"></i> LỊCH KHÁM</span>
+                        </div>
+                        <div className='time-content'>
+                            {availableTime && availableTime.length > 0 ?
+                                (availableTime.map((item, index) => {
+                                    return (
+                                        <button onClick={() => this.handleSelectTime(item)} key={index}>
+                                            {language === LANGUAGES.VI ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
+                                        </button>
+                                    )
+                                }))
+                                : <div>Không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác!</div>
+                            }
+                        </div>
+                        <div className='contact'>
+                            <span>
+                                {availableTime && availableTime.length > 0 ? (
+                                    <>
+                                        Chọn <i class="far fa-hand-point-up"></i> và đặt (Phí đặt lịch 0đ)
+                                    </>
+                                ) : (``)}
+                            </span>
 
+                        </div>
                     </div>
-                </div>
-                <div className='all-available'>
+                    <div className='all-available'></div>
+                </div >
+                <BookingModal
+                    id={id}
+                    selectedTime={this.state.selectedTime}
+                    selectedDay={this.state.selectedDay}
+                    detailDoctor={this.props.detailDoctor}
+                    isOpenModal={this.state.isOpenModalBooking}
+                    closeModalBooking={() => this.closeModalBooking()} />
+            </>
 
-                </div>
-
-            </div >
         )
     }
 }
