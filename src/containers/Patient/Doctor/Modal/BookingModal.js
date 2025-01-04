@@ -2,8 +2,6 @@ import React, { Component, Fragment } from 'react';
 import { connect } from "react-redux";
 import './BookingModal.scss';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
-import { getDetailInfoDoctor } from '../../../../services/userService';
-import { getFullInfoBooking } from '../../../../services/userService';
 import { LANGUAGES } from '../../../../utils';
 import { NumericFormat } from 'react-number-format';
 import moment from 'moment';
@@ -12,13 +10,15 @@ import { toast } from 'react-toastify';
 import Flatpickr from "react-flatpickr";
 import 'flatpickr/dist/flatpickr.css';
 import { Vietnamese } from 'flatpickr/dist/l10n/vn.js';
+import { FormattedMessage } from 'react-intl';
+import { injectIntl } from 'react-intl';
 
 class BookingModal extends Component {
 
     constructor(props) {
+
         super(props);
         this.state = {
-            infoDoctorBooking: '',
             listGender: '',
             listProvince: '',
             namePatient: '',
@@ -36,6 +36,7 @@ class BookingModal extends Component {
     }
 
     async componentDidMount() {
+
         let listGenderAPI = await getAllCodeService('GENDER')
         console.log('check listGenderAPI: ', listGenderAPI.data)
         this.setState({
@@ -46,34 +47,33 @@ class BookingModal extends Component {
         this.setState({
             listProvince: listProvinceAPI.data
         })
+        // console.log('check state modal didmount: ', this.state)
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('check infoDoctorBooking res: ', this.props.detailDoctor);
-        if (this.props.isOpenModal !== prevProps.isOpenModal) {
-            this.setState({
-                namePatient: '',
-                gerderPatient: '',
-                phonePatient: '',
-                emailPatient: '',
-                lastNamePatient: '',
-                firstNamePatient: '',
-                provincePatient: '',
-                reason: '',
-                addressPatient: '',
-                birthdayPatient: '',
+        console.log('-')
+        console.log('check this.props.detailDoctor didupdate: ', this.props.detailDoctor);
+        // if (this.props.isOpenModal !== prevProps.isOpenModal) {
+        //     this.setState({
+        //         namePatient: '',
+        //         gerderPatient: '',
+        //         phonePatient: '',
+        //         emailPatient: '',
+        //         lastNamePatient: '',
+        //         firstNamePatient: '',
+        //         provincePatient: '',
+        //         reason: '',
+        //         addressPatient: '',
+        //         birthdayPatient: '',
 
-            })
-        }
-        if (this.props.detailDoctor !== prevProps.detailDoctor) {
-            this.setState({
-                infoDoctorBooking: this.props.detailDoctor
-            })
-        }
+        //     })
+        // }
+
+        console.log('after setState didupdate: ', this.state)
+
     }
 
     handleOnChangeInput = (event, input) => {
-        console.log('check event: ', event.target.value, input)
         let copyState = { ...this.state };
         copyState[input] = event.target.value;
         this.setState({
@@ -111,36 +111,42 @@ class BookingModal extends Component {
 
 
     render() {
+
+        console.log('this.props.isOpenModal check: ', this.props.isOpenModal)
+        console.log('check this.props.detailDoctor: ', this.props.detailDoctor);
+        console.log("--------------")
         if (!this.props.isOpenModal) {
             return null;
         }
-        let { language, selectedTime, selectedDay } = this.props;
-        let { infoDoctorBooking, listGender, gerderPatient, listProvince, provincePatient, reason, addressPatient, birthdayPatient } = this.state;
+        console.log('--')
+        let { language, selectedTime, selectedDay, intl, detailDoctor } = this.props;
+        let { listGender, gerderPatient, listProvince, provincePatient, reason, addressPatient, birthdayPatient } = this.state;
         let nameVi = '', nameEn = '';
-        if (infoDoctorBooking && infoDoctorBooking.positionData) {
-            nameVi = `${infoDoctorBooking.positionData.valueVi}, ${infoDoctorBooking.lastName} ${infoDoctorBooking.firstName}`;
-            nameEn = `${infoDoctorBooking.positionData.valueEn}, ${infoDoctorBooking.firstName} ${infoDoctorBooking.lastName}`;
+        if (detailDoctor && detailDoctor.positionData) {
+            nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
+            nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
         }
         let timeBooking = language === LANGUAGES.VI ? selectedTime.timeTypeData.valueVi : selectedTime.timeTypeData.valueEn;
         let dayBooking = language === LANGUAGES.VI ? moment((selectedDay)).format('dddd - DD/MM') : moment((selectedDay)).locale('en').format('dddd - DD/MM');
         // let languageCalendar = language === LANGUAGE.VI ? Vietnamese : ''
         console.log('check state modal: ', this.state)
         console.log('check props modal: ', this.props)
+        console.log('check this.props.detailDoctor: ', this.props.detailDoctor)
         return (
             <div className='booking-modal-container'>
-                <Modal isOpen={this.props.isOpenModal} centered>
+                <Modal isOpen={this.props.isOpenModal} centered toggle={() => this.props.closeModalBooking()}>
                     <ModalHeader toggle={() => this.props.closeModalBooking()}>
-                        <div className='title'>Đặt lịch khám</div>
+                        <div className='title'><FormattedMessage id='menu.patient.book-appointment' /></div>
                     </ModalHeader>
                     <ModalBody>
                         <div className='header'>
                             <div className='content-left'>
-                                <div className='content-image' style={{ backgroundImage: `url(${infoDoctorBooking.image})` }}></div>
+                                <div className='content-image' style={{ backgroundImage: `url(${detailDoctor.image})` }}></div>
 
                             </div>
                             <div className='content-right'>
                                 <div className='name-doctor'>
-                                    {infoDoctorBooking.positionData && infoDoctorBooking.positionData.valueVi &&
+                                    {detailDoctor.positionData && detailDoctor.positionData.valueVi &&
                                         <span>
                                             {language === LANGUAGES.VI ? nameVi : nameEn}
                                         </span>
@@ -152,30 +158,30 @@ class BookingModal extends Component {
                                 </div>
                                 <div className='clinic'>
                                     <i class="fas fa-hospital"></i>
-                                    <div className='name-clinic'>{infoDoctorBooking.Doctor_Info.nameClinic}</div>
+                                    <div className='name-clinic'>{detailDoctor.Doctor_Info.nameClinic}</div>
                                 </div>
                                 <div className='address'>
-                                    <i class="fas"></i>
+                                    <i class="fas fa-map-marker-alt"></i>
                                     <div className='address-clinic'>
-                                        {infoDoctorBooking.Doctor_Info.addressClinic}
+                                        {detailDoctor.Doctor_Info.addressClinic}
                                     </div>
                                 </div>
                                 <div className='price'>
                                     <i class="fas fa-money-bill"></i>
-                                    <div className='price-doctor'>Giá khám: {language === LANGUAGES.VI
+                                    <div className='price-doctor'><FormattedMessage id='menu.patient.price' /> <b>{language === LANGUAGES.VI
                                         ? <NumericFormat
-                                            value={infoDoctorBooking.Doctor_Info.priceData.valueVi}
+                                            value={detailDoctor.Doctor_Info.priceData.valueVi}
                                             displayType={'text'}
                                             thousandSeparator={true}
                                             suffix={' VNĐ'}
                                         />
                                         : <NumericFormat
-                                            value={infoDoctorBooking.Doctor_Info.priceData.valueEn}
+                                            value={detailDoctor.Doctor_Info.priceData.valueEn}
                                             displayType={'text'}
                                             thousandSeparator={true}
                                             suffix={' $'}
                                         />
-                                    }
+                                    }</b>
                                     </div>
                                 </div>
                             </div>
@@ -190,7 +196,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="text"
-                                        placeholder="Họ (bắt buộc)"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.lastName' })}
                                         value={this.state.lastNamePatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'lastNamePatient')}
                                     />
@@ -201,7 +207,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="text"
-                                        placeholder="Tên (bắt buộc)"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.firstName' })}
                                         value={this.state.firstNamePatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'firstNamePatient')}
                                     />
@@ -215,7 +221,9 @@ class BookingModal extends Component {
                                     <select class="form-control"
                                         value={gerderPatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'gerderPatient')}>
-                                        <option value="" disabled selected >{language === LANGUAGES.VI ? 'Chọn giới tính' : 'Select gender'}</option>
+                                        <option value="" disabled hidden>
+                                            {intl.formatMessage({ id: 'menu.patient.gender' })}
+                                        </option>
                                         {listGender && listGender.length > 0 &&
                                             listGender.map((item, index) => {
                                                 return (
@@ -234,7 +242,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="text"
-                                        placeholder="Số điện thoại liên hệ (bắt buộc)"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.phone' })}
                                         value={this.state.phonePatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'phonePatient')}
                                     />
@@ -247,7 +255,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="email"
-                                        placeholder="Địa chỉ email"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.email' })}
                                         value={this.state.emailPatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'emailPatient')} />
 
@@ -259,7 +267,9 @@ class BookingModal extends Component {
                                     <span class="input-group-text">
                                         <i class="fas fa-calendar-alt"></i>
                                     </span>
-                                    <Flatpickr class="form-control flatpickr" style={{ background: 'none' }} placeholder="Ngày tháng năm sinh (bắt buộc)"
+                                    <Flatpickr class="form-control flatpickr"
+                                        style={{ background: 'none' }}
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.birthday' })}
                                         selected={birthdayPatient}
                                         options={{
                                             locale: language === LANGUAGES.VI ? Vietnamese : '',
@@ -277,7 +287,9 @@ class BookingModal extends Component {
                                     <select class="form-control"
                                         value={provincePatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'provincePatient')}>
-                                        <option value="" disabled selected >{language === LANGUAGES.VI ? 'Chọn tỉnh/thành' : 'Select province'}</option>
+                                        <option value="" disabled hidden>
+                                            {intl.formatMessage({ id: 'menu.patient.province' })}
+                                        </option>
                                         {listProvince && listProvince.length > 0 &&
                                             listProvince.map((item, index) => {
                                                 return (
@@ -296,7 +308,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="text"
-                                        placeholder="Địa chỉ"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.address' })}
                                         value={addressPatient}
                                         onChange={(event) => this.handleOnChangeInput(event, 'addressPatient')} />
                                 </div>
@@ -308,7 +320,7 @@ class BookingModal extends Component {
                                     </span>
                                     <input class="form-control"
                                         type="text"
-                                        placeholder="Lý do khám"
+                                        placeholder={intl.formatMessage({ id: 'menu.patient.reason' })}
                                         value={reason}
                                         onChange={(event) => this.handleOnChangeInput(event, 'reason')} />
                                 </div>
@@ -325,7 +337,7 @@ class BookingModal extends Component {
                         </Button>
                     </ModalFooter>
                 </Modal>
-            </div>
+            </div >
         );
     }
 }
@@ -343,4 +355,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookingModal);
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BookingModal));

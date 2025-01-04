@@ -39,7 +39,32 @@
         },
         "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh",
-            "schedule": "Kế hoạch khám bệnh"
+            "schedule": "Kế hoạch khám bệnh",
+            "calendar": " Lịch khám",
+            "choose-1": "Chọn ",
+            "choose-2": " và đặt (Miễn phí).",
+            "no-time": "Không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác!",
+            "address-clinic": "Địa chỉ khám",
+            "price": "Giá khám: ",
+            "price-1": "Giá khám thần kinh ",
+            "about-price-1": "(Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm)",
+            "facility": "THẦN KINH, NGOẠI THẦN KINH",
+            "payment": "Bệnh viện có thanh toán bằng hình thức tiền mặt, chuyển khoản và quẹt thẻ.",
+            "hide": "Ẩn bảng giá",
+            "show": " Xem chi tiết"
+        },
+        "patient": {
+            "book-appointment": "Đặt lịch khám",
+            "price": "Giá khám:",
+            "firstName": " Tên",
+            "lastName": " Họ",
+            "gender": "Chọn giới tính",
+            "phone": " Số điện thoại liên hệ",
+            "email": " Địa chỉ email",
+            "birthday": " Ngày tháng năm sinh",
+            "province": "Chọn Tỉnh/Thành",
+            "address": " Địa chỉ",
+            "reason": " Lý do khám"
         }
     },
     "manage-user": {
@@ -60,7 +85,7 @@
         "edit": "Cập nhật"
     },
     "homepage": {
-        "out-standing-doctor": "Bác sĩ nổi bật tuần qua",
+        "out-standing-doctor": "Danh sách bác sĩ",
         "more-info": "Xem thêm"
     },
     "manage-schedule": {

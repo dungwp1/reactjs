@@ -106,6 +106,7 @@
                         min-width: 20px
                     }
 
+
                 }
             }
         }
@@ -126,11 +127,14 @@
                     .input-group-text {
                         border: none;
                         background: none;
+                        min-width: 35px;
                     }
 
                     .form-control {
                         border: none;
                         border-radius: none;
+
+
                     }
                 }
 

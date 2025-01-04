@@ -48,13 +48,13 @@ class DoctorExtraInfo extends Component {
         return (
             <div className='doctor-extra-info-container'>
                 <div className='doctor-extra-info-content'>
-                    <div className='title-clinic'>Địa chỉ khám</div>
+                    <div className='title-clinic'><FormattedMessage id='menu.doctor.address-clinic' /></div>
                     <div className='name-clinic'>{nameClinic}</div>
                     <div className='address-clinic'>{addressClinic}</div>
                     <div className='price'>
                         {isShowAboutPrice === false &&
                             <div className='hide-price'>
-                                <div>{`GIÁ KHÁM: `}
+                                <div><FormattedMessage id='menu.doctor.price' />
                                     {language === LANGUAGES.VI
                                         ? <NumericFormat
                                             value={price.valueVi}
@@ -67,21 +67,21 @@ class DoctorExtraInfo extends Component {
                                             displayType={'text'}
                                             thousandSeparator={true}
                                             suffix={' $'}
-                                        />}
+                                        />}.
 
-                                    <span className='xem-chi-tiet' onClick={() => this.handleShowHide(true)}> {`Xem chi tiết`} </span>
+                                    <span className='xem-chi-tiet' onClick={() => this.handleShowHide(true)}><FormattedMessage id='menu.doctor.show' /></span>
                                 </div>
 
                             </div>
                         }
                         {isShowAboutPrice === true &&
                             <div className='show-price'>
-                                <div className='title-1'>THẦN KINH, NGOẠI THẦN KINH</div>
-                                <div className='title-2'>GIÁ KHÁM:</div>
+                                <div className='title-1'><FormattedMessage id='menu.doctor.facility' /></div>
+                                <div className='title-2'><FormattedMessage id='menu.doctor.price' /></div>
                                 <div className='row-1'>
                                     <div className='left'>
-                                        <span>Giá khám Thần kinh</span>
-                                        <span>Giá khám chưa bao gồm chi phí chụp chiếu, xét nghiệm</span>
+                                        <span><FormattedMessage id='menu.doctor.price-1' /></span>
+                                        <span><FormattedMessage id='menu.doctor.about-price-1' /></span>
                                     </div>
                                     <div className='right'>
                                         <span>{language === LANGUAGES.VI
@@ -101,10 +101,10 @@ class DoctorExtraInfo extends Component {
 
                                 </div>
                                 <div className='row-2'>
-                                    <span>Bệnh viện có thanh toán bằng hình thức tiền mặt, chuyển khoản và quẹt thẻ.</span>
+                                    <span><FormattedMessage id='menu.doctor.payment' /></span>
                                 </div>
 
-                                <span className='xem-chi-tiet' onClick={() => this.handleShowHide(false)}>Ẩn bảng giá</span>
+                                <span className='xem-chi-tiet' onClick={() => this.handleShowHide(false)}><FormattedMessage id='menu.doctor.hide' /></span>
                             </div>
                         }
 

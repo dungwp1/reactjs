@@ -39,7 +39,32 @@
         },
         "doctor": {
             "manage-schedule": "Manage appointment schedule",
-            "schedule": "Appointment Schedule"
+            "schedule": "Appointment schedule",
+            "calendar": " Consultation schedule",
+            "choose-1": "Choose ",
+            "choose-2": " and book (Free).",
+            "no-time": "No appointments available at this time, please choose another time!",
+            "address-clinic": "Clinic address",
+            "price": "Consultation price: ",
+            "price-1": "Neurology consultation price",
+            "about-price-1": "(The consultation price does not include imaging or testing costs)",
+            "facility": "NEUROLOGY, NEUROSURGERY",
+            "payment": "The hospital accepts payment via cash, bank transfer, and card.",
+            "hide": "Hide price list",
+            "show": "View details"
+        },
+        "patient": {
+            "book-appointment": "Book appointment",
+            "price": "Consultation price:",
+            "firstName": " First Name",
+            "lastName": " Last Name",
+            "gender": "Select gender",
+            "phone": " Contact phone number",
+            "email": " Email address",
+            "birthday": " Date of birth",
+            "province": "Select Province/City",
+            "address": " Address",
+            "reason": " Reason for consultation"
         }
     },
     "manage-user": {
@@ -60,7 +85,7 @@
         "edit": "Edit"
     },
     "homepage": {
-        "out-standing-doctor": "Outstanding doctor of the week",
+        "out-standing-doctor": "Outstanding doctor",
         "more-info": "More info"
     },
     "manage-schedule": {

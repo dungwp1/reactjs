@@ -149,7 +149,7 @@ class DoctorSchedule extends Component {
                                 })}
                         </select>
                         <div className='text-calendar'>
-                            <span><i class="fas fa-calendar-alt"></i> LỊCH KHÁM</span>
+                            <span><i class="fas fa-calendar-alt"> </i><FormattedMessage id='menu.doctor.calendar' /></span>
                         </div>
                         <div className='time-content'>
                             {availableTime && availableTime.length > 0 ?
@@ -160,14 +160,14 @@ class DoctorSchedule extends Component {
                                         </button>
                                     )
                                 }))
-                                : <div>Không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác!</div>
+                                : <div><FormattedMessage id='menu.doctor.no-time' /></div>
                             }
                         </div>
                         <div className='contact'>
                             <span>
                                 {availableTime && availableTime.length > 0 ? (
                                     <>
-                                        Chọn <i class="far fa-hand-point-up"></i> và đặt (Phí đặt lịch 0đ)
+                                        <FormattedMessage id='menu.doctor.choose-1' /> <i class="far fa-hand-point-up"></i> <FormattedMessage id='menu.doctor.choose-2' />
                                     </>
                                 ) : (``)}
                             </span>

@@ -70,11 +70,14 @@
                     .left {
                         display: flex;
                         flex-direction: column;
+                        width: 70%;
                     }
 
                     .right {
                         display: flex;
                         align-items: center;
+                        justify-content: flex-end;
+                        width: 30%;
                     }
                 }
 
