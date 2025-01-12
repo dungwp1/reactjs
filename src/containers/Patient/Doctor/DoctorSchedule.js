@@ -50,9 +50,9 @@ class DoctorSchedule extends Component {
         }
         // console.log('check arrDate: ', arrDate)
         // console.log('check ngày đầu doctorId: ', id)
-        console.log('check ngày đầu arrDate[0].value: ', arrDate[0].value, typeof arrDate[0].value)
+        // console.log('check ngày đầu arrDate[0].value: ', arrDate[0].value, typeof arrDate[0].value)
         let response = await getDoctorSchedule(this.props.id, arrDate[0].value)
-        console.log('check ngày đầu: ', response)
+        // console.log('check ngày đầu: ', response)
         this.setState({
             allDays: arrDate,
             availableTime: response.data,
@@ -128,7 +128,6 @@ class DoctorSchedule extends Component {
     }
 
     render() {
-        console.log('check state doctorschedule: ', this.state)
         const { availableTime, allDays } = this.state;
         const { language, id } = this.props
         // console.log('check doctorschedule doctorId: ', id)

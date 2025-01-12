@@ -21,16 +21,17 @@ class BookingModal extends Component {
         this.state = {
             listGender: '',
             listProvince: '',
-            namePatient: '',
+            lastNamePatient: '',
+            firstNamePatient: '',
             gerderPatient: '',
             phonePatient: '',
             emailPatient: '',
-            lastNamePatient: '',
-            firstNamePatient: '',
-            provincePatient: '',
-            reason: '',
-            addressPatient: '',
             birthdayPatient: '',
+            provincePatient: '',
+            addressPatient: '',
+            reason: '',
+            timeBooking: '',
+            dayBooking: ''
         };
 
     }
@@ -38,12 +39,10 @@ class BookingModal extends Component {
     async componentDidMount() {
 
         let listGenderAPI = await getAllCodeService('GENDER')
-        console.log('check listGenderAPI: ', listGenderAPI.data)
         this.setState({
             listGender: listGenderAPI.data
         })
         let listProvinceAPI = await getAllCodeService('PROVINCE')
-        console.log('check listProvinceAPI: ', listProvinceAPI.data)
         this.setState({
             listProvince: listProvinceAPI.data
         })
@@ -51,26 +50,22 @@ class BookingModal extends Component {
     }
 
     async componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log('-')
-        console.log('check this.props.detailDoctor didupdate: ', this.props.detailDoctor);
-        // if (this.props.isOpenModal !== prevProps.isOpenModal) {
-        //     this.setState({
-        //         namePatient: '',
-        //         gerderPatient: '',
-        //         phonePatient: '',
-        //         emailPatient: '',
-        //         lastNamePatient: '',
-        //         firstNamePatient: '',
-        //         provincePatient: '',
-        //         reason: '',
-        //         addressPatient: '',
-        //         birthdayPatient: '',
+        if (this.props.isOpenModal !== prevProps.isOpenModal) {
+            this.setState({
+                lastNamePatient: '',
+                firstNamePatient: '',
+                gerderPatient: '',
+                phonePatient: '',
+                emailPatient: '',
+                birthdayPatient: '',
+                provincePatient: '',
+                addressPatient: '',
+                reason: '',
+                timeBooking: this.props.language === LANGUAGES.VI ? this.props.selectedTime.timeTypeData.valueVi : this.props.selectedTime.timeTypeData.valueEn,
+                dayBooking: this.props.language === LANGUAGES.VI ? moment((this.props.selectedDay)).format('dddd - DD/MM') : moment((this.props.selectedDay)).locale('en').format('dddd - DD/MM')
 
-        //     })
-        // }
-
-        console.log('after setState didupdate: ', this.state)
-
+            })
+        }
     }
 
     handleOnChangeInput = (event, input) => {
@@ -82,6 +77,9 @@ class BookingModal extends Component {
     }
 
     handleSaveInfoBooking = async () => {
+
+        console.log('trước API ', this.state.timeBooking, '--', this.state.dayBooking)
+
         let response = await postInfoBooking({
             email: this.state.emailPatient,
             statusId: 'S1',
@@ -92,7 +90,11 @@ class BookingModal extends Component {
             gender: this.state.gerderPatient,
             firstName: this.state.firstNamePatient,
             lastName: this.state.lastNamePatient,
+            timeBooking: this.state.timeBooking,
+            dayBooking: this.state.dayBooking
         })
+        console.log('sau API ', this.state.timeBooking, '--', this.state.dayBooking)
+
         if (response.errCode === 0) {
             toast.success('Save info booking succeed!')
         } else {
@@ -100,10 +102,10 @@ class BookingModal extends Component {
 
         }
         this.props.closeModalBooking()
-        console.log('check response API postInfoBooking: ', response)
+        console.log('sau API, close modal ', this.state.timeBooking, '--', this.state.dayBooking)
+
     }
     handleSelectBirthdayPatient = (dateSelect) => {
-        console.log('check dateSelect: ', dateSelect)
         this.setState({
             birthdayPatient: new Date(dateSelect).getTime()
         })
@@ -112,26 +114,22 @@ class BookingModal extends Component {
 
     render() {
 
-        console.log('this.props.isOpenModal check: ', this.props.isOpenModal)
-        console.log('check this.props.detailDoctor: ', this.props.detailDoctor);
-        console.log("--------------")
         if (!this.props.isOpenModal) {
             return null;
         }
-        console.log('--')
         let { language, selectedTime, selectedDay, intl, detailDoctor } = this.props;
-        let { listGender, gerderPatient, listProvince, provincePatient, reason, addressPatient, birthdayPatient } = this.state;
+        let { listGender, gerderPatient, listProvince, provincePatient, reason, addressPatient, birthdayPatient, timeBooking, dayBooking } = this.state;
         let nameVi = '', nameEn = '';
         if (detailDoctor && detailDoctor.positionData) {
             nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
             nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
         }
-        let timeBooking = language === LANGUAGES.VI ? selectedTime.timeTypeData.valueVi : selectedTime.timeTypeData.valueEn;
-        let dayBooking = language === LANGUAGES.VI ? moment((selectedDay)).format('dddd - DD/MM') : moment((selectedDay)).locale('en').format('dddd - DD/MM');
+        // timeBooking = language === LANGUAGES.VI ? selectedTime.timeTypeData.valueVi : selectedTime.timeTypeData.valueEn;
+        // dayBooking = language === LANGUAGES.VI ? moment((selectedDay)).format('dddd - DD/MM') : moment((selectedDay)).locale('en').format('dddd - DD/MM');
         // let languageCalendar = language === LANGUAGE.VI ? Vietnamese : ''
         console.log('check state modal: ', this.state)
         console.log('check props modal: ', this.props)
-        console.log('check this.props.detailDoctor: ', this.props.detailDoctor)
+        console.log('check thời gian đặt lịch: ', timeBooking, typeof timeBooking, '--', dayBooking, typeof dayBooking)
         return (
             <div className='booking-modal-container'>
                 <Modal isOpen={this.props.isOpenModal} centered toggle={() => this.props.closeModalBooking()}>
@@ -186,7 +184,6 @@ class BookingModal extends Component {
                                 </div>
                             </div>
                         </div>
-
 
                         <div className='row'>
                             <div className='col-12 form group name-patient'>

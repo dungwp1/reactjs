@@ -57,7 +57,6 @@ class OutStandingDoctor extends Component {
                                                 style={{ backgroundImage: `url(${imageBase64})` }}
                                             > </div>
                                             <div>{language === LANGUAGES.VI ? nameVi : nameEn}</div>
-                                            <div>Chuyên khoa 1</div>
                                         </div>
                                     )
                                 })}
